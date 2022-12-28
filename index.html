@@ -100,6 +100,7 @@
             x: 50,
             y: 0,
             raio: 20,
+            velocidade: 8,
             direcaoX: 1,
             direcaoY: 1,
             _calcPosition: function() {
@@ -133,10 +134,14 @@
                 this.direcaoY = this.direcaoY * -1;
             },
             _move: function() {
-                this.x += this.direcaoX * 8;
-                this.y += this.direcaoY * 8;
+                this.x += this.direcaoX * this.velocidade;
+                this.y += this.direcaoY * this.velocidade;
+            },
+            _incrementaVelocidade: function() {
+                this.velocidade += 2;
             },
             _reiniciaBola: function() {
+                this._incrementaVelocidade();
                 this._inverteX();                
                 this.x = campo.largura / 2;
                 this.y = campo.altura / 2;
