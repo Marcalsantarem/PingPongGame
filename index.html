@@ -67,8 +67,20 @@
             y: 0,
             largura: larguraLinha,
             altura: 200,
+            velocidade: 2.5,
             _move: function() {
-                this.y = bola.y;
+                if (this.y + this.altura / 2 < bola.y + bola.raio) {
+                    this.y += this.velocidade;
+                } else {
+                    this.y -= this.velocidade;
+                }
+            },
+            incrementaVelocidade: function(x) {
+                this.x = campo.largura - larguraLinha - margem,
+                this.y = campo.altura / 2 - this.altura / 2;
+                if (x == "jogador"){
+                    this.velocidade *= 1.25;
+                }
             },
             draw: function() {
                 contexto.fillStyle = "#ffffff";
@@ -78,21 +90,21 @@
         }
 
         const placar = {
-            humano: 0,
-            computador: 0,
-            pontoHumano: function() {
-                this.humano++;
+            jogador: 0,
+            cpu: 0,
+            pontoJogador: function() {
+                this.jogador++;
             },
-            pontoComputador: function() {
-                this.computador++;
+            pontoCpu: function() {
+                this.cpu++;
             },
             draw: function() {
                 contexto.fillStyle = "#01341D";
                 contexto.font = "bold 72px Arial";
                 contexto.textAlign = "center";
                 contexto.textBaseline = "top";
-                contexto.fillText(this.humano, campo.largura / 4, 50);
-                contexto.fillText(this.computador, campo.largura / 4 + campo.largura / 2, 50);
+                contexto.fillText(this.jogador, campo.largura / 4, 50);
+                contexto.fillText(this.cpu, campo.largura / 4 + campo.largura / 2, 50);
             }
         }
 
@@ -100,7 +112,7 @@
             x: 50,
             y: 0,
             raio: 20,
-            velocidade: 8,
+            velocidade: 6,
             direcaoX: 1,
             direcaoY: 1,
             _calcPosition: function() {
@@ -109,8 +121,8 @@
                         this.y - this.raio < raqueteDireita.y + raqueteDireita.altura) {
                         this._inverteX();
                     } else {
-                        placar.pontoHumano();
-                        this._reiniciaBola();
+                        placar.pontoJogador();
+                        this._reiniciaBola("jogador");
                     }
                 }
                 if (this.x < this.raio + raqueteEsquerda.largura + margem) {
@@ -118,10 +130,11 @@
                         this.y - this.raio < raqueteEsquerda.y + raqueteEsquerda.altura) {
                         this._inverteX();
                     } else {
-                        placar.pontoComputador();
-                        this._reiniciaBola();
+                        placar.pontoCpu();
+                        this._reiniciaBola("cpu");
                     }
                 }
+
                 if ((this.y - this.raio < 0 && this.direcaoY < 0) ||
                     (this.y > campo.altura - this.raio && this.direcaoY > 0)) {
                     this._inverteY();
@@ -138,9 +151,10 @@
                 this.y += this.direcaoY * this.velocidade;
             },
             _incrementaVelocidade: function() {
-                this.velocidade += 2;
+                this.velocidade *= 1.1;
             },
-            _reiniciaBola: function() {
+            _reiniciaBola: function(x) {
+                raqueteDireita.incrementaVelocidade(x);
                 this._incrementaVelocidade();
                 this._inverteX();                
                 this.x = campo.largura / 2;
