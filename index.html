@@ -22,6 +22,11 @@
         const larguraLinha = 15;
         const margem = 10;
 
+        const mouse = {
+            x: 0,
+            y: 0
+        }
+
         const campo = {
             largura: window.innerWidth,
             altura: window.innerHeight,
@@ -47,8 +52,8 @@
             y: 0,
             largura: larguraLinha,
             altura: 200,
-            _move: function() {
-                this.y = bola.y;
+            _move: function(){
+                this.y = mouse.y - this.altura / 2;
             },
             draw: function() {
                 contexto.fillStyle = "#ffffff";
@@ -157,6 +162,11 @@
 
         setup();
         main();
+
+        objetoCanvas.addEventListener("mousemove", function(e) {
+            mouse.x = e.pageX;
+            mouse.y = e.pageY;
+        })
     </script>
 </body>
 </html>
