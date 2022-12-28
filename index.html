@@ -23,49 +23,68 @@
         const margem = 10;
 
         const campo = {
+            largura: window.innerWidth,
+            altura: window.innerHeight,
             draw: function() {
                 contexto.fillStyle = "#286047";
-                contexto.fillRect(0, 0, window.innerWidth, window.innerHeight);
+                contexto.fillRect(0, 0, this.largura, this.altura);
             }
         }
 
         const linhaCentral = {
+            x: campo.largura / 2 - larguraLinha / 2,
+            y: 0,
+            largura: larguraLinha,
+            altura: campo.altura,
             draw: function() {
                 contexto.fillStyle = "#ffffff";
-                contexto.fillRect(window.innerWidth / 2 - larguraLinha / 2, 0, larguraLinha, window.innerHeight);
+                contexto.fillRect(this.x, this.y, this.largura, this.altura);
             }
         }
 
         const raqueteEsquerda = {
+            x: margem,
+            y: 0,
+            largura: larguraLinha,
+            altura: 200,
             draw: function() {
                 contexto.fillStyle = "#ffffff";
-                contexto.fillRect(margem, 0, larguraLinha, 200);
+                contexto.fillRect(this.x, this.y, this.largura, this.altura);
             }
         }
 
         const raqueteDireita = {
+            x: campo.largura - larguraLinha - margem,
+            y: 0,
+            largura: larguraLinha,
+            altura: 200,
             draw: function() {
                 contexto.fillStyle = "#ffffff";
-                contexto.fillRect(window.innerWidth - larguraLinha - margem, 0, larguraLinha, 200);
+                contexto.fillRect(this.x, this.y, this.largura, this.altura);
             }
         }
 
         const placar = {
+            humano: 0,
+            computador: 0,
             draw: function() {
                 contexto.fillStyle = "#01341D";
                 contexto.font = "bold 72px Arial";
                 contexto.textAlign = "center";
                 contexto.textBaseline = "top";
-                contexto.fillText(0, window.innerWidth / 4, 50);
-                contexto.fillText(0, window.innerWidth / 4 + window.innerWidth / 2, 50);
+                contexto.fillText(this.humano, campo.largura / 4, 50);
+                contexto.fillText(this.computador, campo.largura / 4 + campo.largura / 2, 50);
             }
         }
 
         const bola = {
+            x: 250,
+            y: 200,
+            raio: 20,
             draw: function() {
                 contexto.fillStyle = "#ffffff";
                 contexto.beginPath();
-                contexto.arc(200, 200, 20, 0, 2 * Math.PI, false);
+                contexto.arc(this.x, this.y, this.raio, 0, 2 * Math.PI, false);
                 contexto.fill();
             }
         }
