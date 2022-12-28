@@ -14,17 +14,31 @@
     </style>
 </head>
 <body>
+    <img id="logo" width="200" height="200" src="logo.png" alt="Logo" hidden>
     <canvas></canvas>
     <script>
         const objetoCanvas = document.querySelector("canvas");
         const contexto = objetoCanvas.getContext("2d");
         
         const larguraLinha = 15;
-        const margem = 10;
+        const margem = 10;                
 
         const mouse = {
             x: 0,
             y: 0
+        }
+
+        function fimDeJogo(win) {
+            alert(`Fim de jogo! O vencedor é ${win}`);            
+            placar.jogador = 0;
+            placar.cpu = 0;
+            raqueteDireita.velocidade = 2.5;
+            bola.x = 50;
+            bola.y = 0;
+            bola.raio = 20;
+            bola.velocidade = 6;
+            bola.direcaoX = 1;
+            bola.direcaoY = 1;
         }
 
         const campo = {
@@ -33,6 +47,15 @@
             draw: function() {
                 contexto.fillStyle = "#286047";
                 contexto.fillRect(0, 0, this.largura, this.altura);
+            }
+        }
+
+        const logo = {
+            img: document.getElementById("logo"),
+            x: campo.largura / 2 - 200,
+            y: campo.altura / 2 - 200,
+            draw: function() {
+                contexto.drawImage(this.img, this.x, this.y);
             }
         }
 
@@ -103,8 +126,10 @@
                 contexto.font = "bold 72px Arial";
                 contexto.textAlign = "center";
                 contexto.textBaseline = "top";
-                contexto.fillText(this.jogador, campo.largura / 4, 50);
-                contexto.fillText(this.cpu, campo.largura / 4 + campo.largura / 2, 50);
+                contexto.fillText("JOGADOR", campo.largura / 4, 40);
+                contexto.fillText(this.jogador, campo.largura / 4, 120);
+                contexto.fillText("CPU", campo.largura / 4 + campo.largura / 2, 40);
+                contexto.fillText(this.cpu, campo.largura / 4 + campo.largura / 2, 120);
             }
         }
 
@@ -122,7 +147,11 @@
                         this._inverteX();
                     } else {
                         placar.pontoJogador();
-                        this._reiniciaBola("jogador");
+                        if (placar.jogador == 10){
+                            fimDeJogo("o Jogador");
+                        } else {
+                            this._reiniciaBola("jogador");
+                        }
                     }
                 }
                 if (this.x < this.raio + raqueteEsquerda.largura + margem) {
@@ -131,7 +160,11 @@
                         this._inverteX();
                     } else {
                         placar.pontoCpu();
-                        this._reiniciaBola("cpu");
+                        if (placar.cpu == 10){
+                            fimDeJogo("a CPU");
+                        } else {
+                            this._reiniciaBola("cpu");
+                        }
                     }
                 }
 
@@ -179,6 +212,7 @@
 
         function draw() {
             campo.draw();
+            logo.draw();
             linhaCentral.draw();
             raqueteEsquerda.draw();
             raqueteDireita.draw();
