@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping-Pong</title>
+    <style>
+        * {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        const objetoCanvas = document.querySelector("canvas");
+        const contexto = objetoCanvas.getContext("2d");
+        
+        const larguraLinha = 15;
+        const margem = 10;
+
+        function setup() {
+            objetoCanvas.width = window.innerWidth;
+            contexto.width = window.innerWidth;
+            objetoCanvas.height = window.innerHeight;
+            contexto.height = window.innerHeight;
+        }
+
+        function draw() {
+            //Desenha o campo
+            contexto.fillStyle = "#286047";
+            contexto.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+            //Desenha a linha central
+            contexto.fillStyle = "#ffffff";
+            contexto.fillRect(window.innerWidth / 2 - larguraLinha / 2, 0, larguraLinha, window.innerHeight);
+
+            //Desenha as raquetes
+            contexto.fillStyle = "#ffffff";
+            contexto.fillRect(margem, 0, larguraLinha, 200);
+            contexto.fillRect(window.innerWidth - larguraLinha - margem, 0, larguraLinha, 200);
+
+            //Desenha a placar
+            contexto.fillStyle = "#01341D";
+            contexto.font = "bold 72px Arial";
+            contexto.textAlign = "center";
+            contexto.textBaseline = "top";
+            contexto.fillText(0, window.innerWidth / 4, 50);
+            contexto.fillText(0, window.innerWidth / 4 + window.innerWidth / 2, 50);
+
+            //Desenha a bola
+            contexto.fillStyle = "#ffffff";
+            contexto.beginPath();
+            contexto.arc(200, 200, 20, 0, 2 * Math.PI, false);
+            contexto.fill();
+        }
+
+        setup();
+        draw();
+    </script>
+</body>
+</html>
