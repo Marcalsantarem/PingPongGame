@@ -97,6 +97,18 @@
             direcaoX: 1,
             direcaoY: 1,
             _calcPosition: function() {
+                if (this.x > campo.largura - this.raio - raqueteDireita.largura - margem) {
+                    if (this.y + this.raio > raqueteDireita.y && 
+                        this.y - this.raio < raqueteDireita.y + raqueteDireita.altura) {
+                        this._inverteX();
+                    }
+                }
+                if (this.x < this.raio + raqueteEsquerda.largura + margem) {
+                    if (this.y + this.raio > raqueteEsquerda.y &&
+                        this.y - this.raio < raqueteEsquerda.y + raqueteEsquerda.altura) {
+                        this._inverteX();
+                    }
+                }
                 if ((this.y - this.raio < 0 && this.direcaoY < 0) ||
                     (this.y > campo.altura - this.raio && this.direcaoY > 0)) {
                     this._inverteY();
