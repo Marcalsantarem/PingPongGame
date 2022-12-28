@@ -47,9 +47,13 @@
             y: 0,
             largura: larguraLinha,
             altura: 200,
+            _move: function(){
+                this.y = bola.y;
+            },
             draw: function() {
                 contexto.fillStyle = "#ffffff";
                 contexto.fillRect(this.x, this.y, this.largura, this.altura);
+                this._move();
             }
         }
 
@@ -58,9 +62,13 @@
             y: 0,
             largura: larguraLinha,
             altura: 200,
+            _move: function(){
+                this.y = bola.y;
+            },
             draw: function() {
                 contexto.fillStyle = "#ffffff";
                 contexto.fillRect(this.x, this.y, this.largura, this.altura);
+                this._move();
             }
         }
 
@@ -78,14 +86,47 @@
         }
 
         const bola = {
-            x: 250,
-            y: 200,
+            x: 50,
+            y: 0,
             raio: 20,
+            direcaoX: 1,
+            direcaoY: 1,
+            _calcPosition: function() {
+                if (this.x > campo.largura - this.raio - raqueteDireita.largura - margem) {
+                    if (this.y + this.raio > raqueteDireita.y && 
+                        this.y - this.raio < raqueteDireita.y + raqueteDireita.altura) {
+                        this._inverteX();
+                    } else {
+                        placar.pontoHumano();
+                        this._restartBall();
+                    }
+                }
+                if (this.x < this.raio + raqueteEsquerda.largura + margem) {
+                    if (this.y + this.raio > raqueteEsquerda.y &&
+                        this.y - this.raio < raqueteEsquerda.y + raqueteEsquerda.altura) {
+                        this._inverteX();
+                    } else {
+                        placar.pontoComputador();
+                        this._restartBall();
+                    }
+                }
+
+                if ((this.y - this.raio < 0 && this.direcaoY < 0) ||
+                    (this.y > campo.altura - this.raio && this.direcaoY > 0)) {
+                    this._inverteY();
+                }
+            },
+            _move: function() {
+                this.x += this.direcaoX * 8;
+                this.y += this.direcaoY * 8;
+            },
             draw: function() {
                 contexto.fillStyle = "#ffffff";
                 contexto.beginPath();
                 contexto.arc(this.x, this.y, this.raio, 0, 2 * Math.PI, false);
-                contexto.fill();
+                contexto.fill();                
+                this._calcPosition();
+                this._move();
             }
         }
 
@@ -105,8 +146,26 @@
             bola.draw();
         }
 
+        window.animateFrame = (function() {
+            return (
+                window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame || 
+                window.oRequestAnimationFrame ||
+                window.msAnimationFrame ||
+                function (callback) {
+                    return window.setTimeout(callback, 1000 / 60);
+                }
+            )
+        })();
+
+        function main(){
+            animateFrame(main);
+            draw();
+        }
+
         setup();
-        draw();
+        main();
     </script>
 </body>
 </html>
