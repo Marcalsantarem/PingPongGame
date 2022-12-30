@@ -247,6 +247,11 @@ if (detectTouchDevice()) {
 }
 
   
+objetoCanvas.addEventListener("touchstart", myFunction, false);
+
+function myFunction() {
+  alert ("Hello World!");
+}
 
 objetoCanvas.addEventListener("mousemove", function (e) {
     mouse.x = e.pageX;
