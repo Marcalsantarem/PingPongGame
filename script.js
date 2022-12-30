@@ -250,7 +250,12 @@ main();
 objetoCanvas.addEventListener("touchstart", myFunction, false);
 
 function myFunction(e) {
-    alert(e.touches);
+    const [toque] = e.touches;
+    alert(toque.screenX);
+    
+    alert(toque.clientX);
+    
+    alert(toque.pageX);
 }
 
 objetoCanvas.addEventListener("mousemove", function (e) {
