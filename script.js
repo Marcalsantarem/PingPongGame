@@ -9,6 +9,13 @@ const mouse = {
     y: 0
 }
 
+
+function detectTouchDevice() {
+    return (('ontouchstart' in window) ||
+       (navigator.maxTouchPoints > 0) ||
+       (navigator.msMaxTouchPoints > 0));
+}
+
 function fimDeJogo(win) {
     alert(`Fim de jogo! O vencedor é ${win}`);
     placar.jogador = 0;
@@ -235,24 +242,13 @@ function main() {
 setup();
 main();
 
+if (detectTouchDevice()) {
+    alert("Está no touch!");
+}
 
-    objetoCanvas.addEventListener("ontouchstart",  function (e) {
-        alert("ON TOUCH START DETECTADO! e.pageX: " + e.pageX + " e.pageY: " + e.pageY);
-    })
+  
 
-    objetoCanvas.addEventListener("ontouchend",  function (e) {
-        alert("ON TOUCH END DETECTADO! e.pageX: " + e.pageX + " e.pageY: " + e.pageY);
-    })
-
-    
-    objetoCanvas.addEventListener("ontouchcancel",  function (e) {
-        alert("ON TOUCH CANCEL DETECTADO! e.pageX: " + e.pageX + " e.pageY: " + e.pageY);
-    })
-
-    objetoCanvas.addEventListener("ontouchmove",  function (e) {
-        alert("ON TOUCH MOVE DETECTADO! e.pageX: " + e.pageX + " e.pageY: " + e.pageY);
-    })
-    objetoCanvas.addEventListener("mousemove", function (e) {
-        mouse.x = e.pageX;
-        mouse.y = e.pageY;
-    })
+objetoCanvas.addEventListener("mousemove", function (e) {
+    mouse.x = e.pageX;
+    mouse.y = e.pageY;
+})
