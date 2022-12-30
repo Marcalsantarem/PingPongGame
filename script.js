@@ -236,9 +236,6 @@ setup();
 main();
 
 
-if ('ontouchstart' in window) {
-
-    
     objetoCanvas.addEventListener("ontouchstart",  function (e) {
         alert("ON TOUCH START DETECTADO! e.pageX: " + e.pageX + " e.pageY: " + e.pageY);
     })
@@ -255,9 +252,7 @@ if ('ontouchstart' in window) {
     objetoCanvas.addEventListener("ontouchmove",  function (e) {
         alert("ON TOUCH MOVE DETECTADO! e.pageX: " + e.pageX + " e.pageY: " + e.pageY);
     })
-} else { 
     objetoCanvas.addEventListener("mousemove", function (e) {
         mouse.x = e.pageX;
         mouse.y = e.pageY;
     })
-}
