@@ -240,7 +240,7 @@ function main() {
 }
 
 setup();
-//main();
+main();
 
 // if (detectTouchDevice()) {
 //     alert("Está no touch!");
@@ -250,9 +250,7 @@ setup();
 objetoCanvas.addEventListener("touchstart", myFunction, false);
 
 function myFunction(e) {
-    const evento = document.createElement("h3");
-    evento.innerHTML(JSON.stringify(e.touches));
-    document.body.append(evento);
+    alert(e.touches);
 }
 
 objetoCanvas.addEventListener("mousemove", function (e) {
