@@ -240,7 +240,7 @@ function main() {
 }
 
 setup();
-main();
+//main();
 
 // if (detectTouchDevice()) {
 //     alert("Está no touch!");
