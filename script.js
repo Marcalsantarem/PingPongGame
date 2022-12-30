@@ -242,15 +242,15 @@ function main() {
 setup();
 main();
 
-if (detectTouchDevice()) {
-    alert("Está no touch!");
-}
+// if (detectTouchDevice()) {
+//     alert("Está no touch!");
+// }
 
   
 objetoCanvas.addEventListener("touchstart", myFunction, false);
 
 function myFunction(e) {
-  alert (e.touches);
+  alert (JSON.stringify(e.touches));
 }
 
 objetoCanvas.addEventListener("mousemove", function (e) {
