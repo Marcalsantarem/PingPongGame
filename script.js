@@ -250,7 +250,9 @@ main();
 objetoCanvas.addEventListener("touchstart", myFunction, false);
 
 function myFunction(e) {
-  alert (JSON.stringify(e.touches));
+    const evento = document.createElement("h3");
+    evento.innerHTML(JSON.stringify(e.touches));
+    document.body.append(evento);
 }
 
 objetoCanvas.addEventListener("mousemove", function (e) {
