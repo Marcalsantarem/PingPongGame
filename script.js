@@ -242,23 +242,17 @@ function main() {
 setup();
 main();
 
-// if (detectTouchDevice()) {
-//     alert("Está no touch!");
-// }
+if (detectTouchDevice()) {
+    objetoCanvas.addEventListener("touchstart", myFunction, false);
 
-  
-objetoCanvas.addEventListener("touchstart", myFunction, false);
-
-function myFunction(e) {
-    const [toque] = e.touches;
-    alert(toque.screenX);
-    
-    alert(toque.clientX);
-    
-    alert(toque.pageX);
+    function myFunction(e) {
+        const [toque] = e.touches;
+        mouse.x = toque.pageX;
+        mouse.y = toque.pageY;
+    }
+} else {
+    objetoCanvas.addEventListener("mousemove", function (e) {
+        mouse.x = e.pageX;
+        mouse.y = e.pageY;
+    })
 }
-
-objetoCanvas.addEventListener("mousemove", function (e) {
-    mouse.x = e.pageX;
-    mouse.y = e.pageY;
-})
