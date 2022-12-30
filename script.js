@@ -250,7 +250,7 @@ if (detectTouchDevice()) {
 objetoCanvas.addEventListener("touchstart", myFunction, false);
 
 function myFunction(e) {
-  alert (e);
+  alert (e.touches);
 }
 
 objetoCanvas.addEventListener("mousemove", function (e) {
