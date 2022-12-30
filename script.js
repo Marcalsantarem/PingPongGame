@@ -243,9 +243,12 @@ setup();
 main();
 
 if (detectTouchDevice()) {
-    objetoCanvas.addEventListener("touchstart", myFunction, false);
+    objetoCanvas.addEventListener("touchstart", eventosTouch, false);
+    objetoCanvas.addEventListener("touchmove", eventosTouch, false);
+    objetoCanvas.addEventListener("touchend", eventosTouch, false);
+    objetoCanvas.addEventListener("touchcancel", eventosTouch, false);
 
-    function myFunction(e) {
+    function eventosTouch(e) {
         const [toque] = e.touches;
         mouse.x = toque.pageX;
         mouse.y = toque.pageY;
